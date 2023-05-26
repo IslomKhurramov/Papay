@@ -1,0 +1,11 @@
+{
+  "name": "papay",
+  "version": "1.0.0",
+  "description": "bu bizning dastavka loyihamiz",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eric",
+  "license": "ISC"
+}

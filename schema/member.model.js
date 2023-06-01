@@ -19,7 +19,7 @@ const memberSchema = new mongoose.Schema(
     mb_password: {
       type: String,
       required: true,
-      Select: false,
+      select: false,
     },
     mb_type: {
       type: String,

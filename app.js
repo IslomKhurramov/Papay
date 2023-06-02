@@ -1,7 +1,8 @@
 console.log("Web Serverni Boshlash");
 const express = require("express");
 const app = express();
-const router = require("./router");
+const router = require("./router.js");
+const router_bssr = require("./router_bssr.js");
 
 //1Kirish
 app.use(express.static("public"));
@@ -16,6 +17,6 @@ app.set("view engine", "ejs");
 
 //4:Routing
 app.use("/", router); //react un
-// app.use("/resto",router_bssr) //ananaviy
+app.use("/resto", router_bssr); //ananaviy
 
 module.exports = app;

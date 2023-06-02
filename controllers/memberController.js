@@ -34,8 +34,3 @@ memberController.logout = (req, res) => {
   console.log("GET cont.logout");
   res.send("logout sahifasidasiz");
 };
-
-memberController.logout = (req, res) => {
-  console.log("GET constroller.logout");
-  res.send("logout sahifasidasz");
-};

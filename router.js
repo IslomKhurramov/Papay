@@ -6,6 +6,10 @@ router.post("/signup", memberController.signup);
 router.post("/login", memberController.login);
 router.get("/logout", memberController.logout);
 
+/*********************************************************
+ *    REST API    -React un kerak bulgan router hisoblanadi *
+ *********************************************************/
+
 //
 
 //boshqa routerlar

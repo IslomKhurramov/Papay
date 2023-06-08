@@ -31,8 +31,10 @@ restaurantController.signupProcess = async (req, res) => {
       member = new Member(),
       new_member = await member.signupData(data);
 
-    req.session.member = new_member;
-    res.redirect("/resto/products/menu");
+    //Sessionlarni hosil qilib olamiz
+
+    req.session.member = new_member; //member nomi bn session hosil qilib olyabmiz va uni ichiga yuqoridagi new_member datani joylashtiryapmiz
+    res.redirect("/resto/products/menu"); //signup process qilingandan kn boshqa pagega yuboraadi
   } catch (err) {
     console.log(`ERROR, const/signup`);
     res.json({ state: "fail", message: err.message });

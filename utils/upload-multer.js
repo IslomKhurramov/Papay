@@ -1,4 +1,4 @@
-const path = require("path");
+const path = require("path"); //nodejs bn birga keladigan core package
 const multer = require("multer");
 const uuid = require("uuid");
 
@@ -6,11 +6,13 @@ const uuid = require("uuid");
 function getTargetImageStorage(address) {
   return multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, `./uploads/${address}`);
+      //request kelyapdi fileni olyabdi va callback bulyapdi
+      cb(null, `./uploads/${address}`); // rasmlarni addressni ichiga yuklash
     },
     filename: function (req, file, cb) {
+      //request kelyapdi fileni olyabdi va callback bulyapdi
       console.log(file);
-      const extension = path.parse(file.originalname).ext;
+      const extension = path.parse(file.originalname).ext; //path degan packagedan parse methodni kiritib file nomini kiritib ext qismi jpegni oberadi
       const random_name = uuid.v4() + extension;
       cb(null, random_name);
     },

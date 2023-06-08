@@ -11,7 +11,6 @@ function getTargetImageStorage(address) {
     },
     filename: function (req, file, cb) {
       //request kelyapdi fileni olyabdi va callback bulyapdi
-      console.log(file);
       const extension = path.parse(file.originalname).ext; //path degan packagedan parse methodni kiritib file nomini kiritib ext qismi jpegni oberadi
       const random_name = uuid.v4() + extension;
       cb(null, random_name);

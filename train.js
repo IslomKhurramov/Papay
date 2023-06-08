@@ -5,6 +5,7 @@ function findDigits(a) {
   for (let i = 0; i < a.length; i++) {
     const char = a.charAt(i);
     if (!isNaN(char)) {
+      console.log(char);
       digits += char;
     }
   }

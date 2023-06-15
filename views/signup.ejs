@@ -4,6 +4,7 @@
 <body>
   <!-- multipart/form-data bu imageni ham ichkariga qushib yuborish mantigi -->
   <form
+    onsubmit="return validateSignUpForm()"
     class="login_container"
     action="/resto/sign-up"
     method="POST"
@@ -25,6 +26,7 @@
           <label>Foydalanuvchinig ismi:</label>
           <input
             name="mb_nick"
+            class="mb_nick"
             type="text"
             placeholder="Foydalanuvchining ismi"
             value=""
@@ -34,6 +36,7 @@
           <label>Telefon raqam:</label>
           <input
             name="mb_phone"
+            class="mb_phone"
             type="text"
             placeholder="Telefon raqam"
             value=""
@@ -46,6 +49,7 @@
           <label>Password:</label>
           <input
             name="mb_password"
+            class="mb_password"
             type="password"
             placeholder="Password"
             value=""
@@ -56,6 +60,7 @@
           <input
             name="mb_confirm_password"
             type="password"
+            class="mb_confirm_password"
             placeholder="Passwordni qayta tasdiqlash"
             value=""
             required />
@@ -72,12 +77,11 @@
                 class="upload-name"
                 value="Rasmni tanlang"
                 disabled="disabled" />
-              <label>Rasmni Yuklash</label>
+              <label for="input_file">Rasmni Yuklash</label>
               <input
                 type="file"
                 name="restaurant_img"
                 id="input_file"
-                placeholder="passwordni tasdiqlash"
                 class="upload-hidden form-control-file restaurant_img" />
             </div>
             <p class="thumbnail_desc">
@@ -94,6 +98,63 @@
       </button>
     </div>
   </form>
+
+  <script>
+    $(function () {
+      let fileTarget = $(`.filebox .upload-hidden`);
+      let filename = "";
+      fileTarget.on("change", function () {
+        if (window.FileReader) {
+          const uploading_file = $(this)[0].files[0];
+          const fileType = uploading_file["type"];
+          const validImagesTypes = ["image/jpeg", "image/jpg", "image/png"];
+          if (!validImagesTypes.includes(fileType)) {
+            alert(
+              "Iltimos ruhsat etilgan formatdagi rasmlarni yuklang: jpg, jpeg, png"
+            );
+          } else {
+            if (uploading_file) {
+              console.log(URL.createObjectURL(uploading_file));
+              $(".upload_image_frame")
+                .attr("src", URL.createObjectURL(uploading_file))
+                .addClass("success");
+            }
+            filename = $(this)[0].files[0].name;
+          }
+        }
+
+        $(this).siblings(".upload-name").val(filename);
+      });
+    });
+
+    function validateSignUpForm() {
+      const mb_nick = $(".mb_nick").val();
+      const mb_phone = $(".mb_phone").val();
+      const mb_password = $(".mb_password").val();
+      const mb_confirm_password = $(".mb_confirm_password").val();
+      const restaurant_img = $(".restaurant_img").get(0).files[0] ?? null;
+
+      if (
+        mb_nick == "" ||
+        mb_phone == "" ||
+        mb_password == "" ||
+        mb_confirm_password == ""
+      ) {
+        alert(`Iltimos hamma malumotni kiriting!`);
+        return false;
+      } else if (mb_password !== mb_confirm_password) {
+        alert("Iltimos passwordni to'gri kiriting");
+        return false;
+      }
+
+      if (!restaurant_img) {
+        alert("Iltimos rasmni yuklang!");
+        return false;
+      }
+
+      return true;
+    }
+  </script>
 </body>
 
 <%- include('includes/footer') %>

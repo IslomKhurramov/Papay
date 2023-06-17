@@ -105,7 +105,8 @@
       let filename = "";
       fileTarget.on("change", function () {
         if (window.FileReader) {
-          const uploading_file = $(this)[0].files[0];
+          ///////////////////
+          const uploading_file = $(this)[0].files[0]; /////////////
           const fileType = uploading_file["type"];
           const validImagesTypes = ["image/jpeg", "image/jpg", "image/png"];
           if (!validImagesTypes.includes(fileType)) {
@@ -114,16 +115,17 @@
             );
           } else {
             if (uploading_file) {
-              console.log(URL.createObjectURL(uploading_file));
+              console.log(URL.createObjectURL(uploading_file)); ////////
               $(".upload_image_frame")
-                .attr("src", URL.createObjectURL(uploading_file))
-                .addClass("success");
+                .attr("src", URL.createObjectURL(uploading_file)) /////////
+                .addClass("success"); ///////////////
             }
-            filename = $(this)[0].files[0].name;
+            filename = $(this)[0].files[0].name; ////////////
+            console.log(filename);
           }
         }
 
-        $(this).siblings(".upload-name").val(filename);
+        $(this).siblings(".upload-name").val(filename); ////////////////
       });
     });
 

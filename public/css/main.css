@@ -1,6 +1,7 @@
 html,
 body {
   height: 100%;
+  background: #2c261e;
 }
 
 #main_container {
@@ -58,4 +59,12 @@ a {
   height: auto;
   display: flex;
   flex-direction: column;
+}
+.new_dish_txt {
+  font-family: "Source Serif Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 25px;
+  color: #ffffff;
 }

@@ -1,5 +1,6 @@
 const Member = require("../models/Member");
 const Product = require("../models/Product");
+const Restaurant = require("../models/Restaurant");
 const Definer = require("../lib/mistake");
 const assert = require("assert");
 
@@ -134,12 +135,16 @@ restaurantController.validateAdmin = (req, res, next) => {
   }
 };
 
-restaurantController.getAllRestaurants = (req, res) => {
+restaurantController.getAllRestaurants = async (req, res) => {
   try {
     console.log("GET: cont/getAllRestaurant");
-    res.render("all-restaurants");
+
+    const restaurant = new Restaurant();
+    const restaurants_data = await restaurant.getAllRestaurantsData();
+    console.log("restaurant-data", restaurants_data);
+    res.render("all-restaurants", { restaurants_data: restaurants_data });
   } catch (err) {
-    console.log(`ERROR, cont/getAllRestaurant`);
+    console.log(`ERROR, cont/getAllRestaurant, ${err.message}`);
     res.json({ state: "fail", message: err.message });
   }
 };

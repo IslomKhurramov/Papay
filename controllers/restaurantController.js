@@ -120,3 +120,26 @@ restaurantController.checkSessions = (req, res) => {
     res.json({ state: "fail", message: "you are not authenticated" });
   }
 };
+
+restaurantController.validateAdmin = (req, res, next) => {
+  if (req.session?.member?.mb_type === "ADMIN") {
+    req.member = req.session.member;
+    next();
+  } else {
+    const html = `<script>
+             alert("Admin page: Permission denied!");
+             window.location.replace("/resto");
+          </script>`;
+    res.end(html);
+  }
+};
+
+restaurantController.getAllRestaurants = (req, res) => {
+  try {
+    console.log("GET: cont/getAllRestaurant");
+    res.render("all-restaurants");
+  } catch (err) {
+    console.log(`ERROR, cont/getAllRestaurant`);
+    res.json({ state: "fail", message: err.message });
+  }
+};

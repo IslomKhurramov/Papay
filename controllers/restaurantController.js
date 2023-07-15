@@ -125,6 +125,8 @@ restaurantController.checkSessions = (req, res) => {
 restaurantController.validateAdmin = (req, res, next) => {
   if (req.session?.member?.mb_type === "ADMIN") {
     req.member = req.session.member;
+    console.log("req.member====", req.member);
+
     next();
   } else {
     const html = `<script>
@@ -155,6 +157,7 @@ restaurantController.updateRestaurantByAdmin = async (req, res) => {
 
     const restaurant = new Restaurant();
     const result = await restaurant.updateRestaurantByAdminData(req.body);
+    console.log("req.body=====", req.body);
     await res.json({ state: "success", data: result });
   } catch (err) {
     console.log(`ERROR, cont/updateRestaurantByAdmin, ${err.message}`);

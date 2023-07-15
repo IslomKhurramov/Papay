@@ -5,6 +5,7 @@ const memberController = require("./controllers/memberController");
 router.post("/signup", memberController.signup);
 router.post("/login", memberController.login);
 router.get("/logout", memberController.logout);
+router.get("/check-me", memberController.checkMyAuthentiction);
 
 /*********************************************************
  *    REST API    -React un kerak bulgan router hisoblanadi *

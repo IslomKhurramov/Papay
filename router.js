@@ -6,6 +6,11 @@ router.post("/signup", memberController.signup);
 router.post("/login", memberController.login);
 router.get("/logout", memberController.logout);
 router.get("/check-me", memberController.checkMyAuthentiction);
+router.get(
+  "/member/:id",
+  memberController.retrieveAuthMember,
+  memberController.getChosenMember
+);
 
 /*********************************************************
  *    REST API    -React un kerak bulgan router hisoblanadi *

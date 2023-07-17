@@ -13,7 +13,7 @@ mongoose.connect(
     useUnifiedTopology: true,
   },
   (err, goose) => {
-    if (err) console.log("ERROR on connection MongoDB");
+    if (err) console.log("ERROR on connection MongoDB", err);
     else {
       console.log("Mongdb connection succeed");
       const app = require("./app");

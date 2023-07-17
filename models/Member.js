@@ -51,13 +51,16 @@ class Member {
   }
 
   async getChosenMemberData(member, id) {
+    //member: userni malumoti (martininiki)
+    //id:kuriladigan restaranni idsi
     try {
       id = shapeIntoMongosObjectId(id);
-      console.log("member:::", member);
+      // console.log("member:::", member);
+      // console.log("id:::", id);
 
       if (member) {
         //condition if not seen before\
-        await this.viewChosenItemByMember(member, id, "member");
+        await this.viewChosenItemByMember(member, id, "member"); //buyerda member qaysi turdagi itemni view qilganimiz
       }
 
       const result = await this.memberModel
@@ -68,6 +71,7 @@ class Member {
         .exec();
 
       assert.ok(result, Definer.general_err2);
+      console.log("result:::", result);
       return result[0];
     } catch (err) {
       throw err;

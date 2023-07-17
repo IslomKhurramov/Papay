@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const memberController = require("./controllers/memberController");
-//memberga dahldor routerlar
+const productController = require("./controllers/productController");
+
+//MEMBER RELATED
 router.post("/signup", memberController.signup);
 router.post("/login", memberController.login);
 router.get("/logout", memberController.logout);
@@ -18,13 +20,11 @@ router.get(
 
 //
 
-//boshqa routerlar
-router.get("/menu", (req, res) => {
-  res.send("Menu sahifasidasz");
-});
-
-router.get("/community", (req, res) => {
-  res.send("Jamiyat sahifasidasz");
-});
+//PRODUCT RELATED
+router.post(
+  "/products",
+  memberController.retrieveAuthMember,
+  productController.getAllProducts
+);
 
 module.exports = router;

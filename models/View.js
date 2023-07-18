@@ -8,14 +8,14 @@ class View {
     this.mb_id = mb_id;
   }
 
-  async validateChosenTarget(_id, group_type) {
+  async validateChosenTarget(view_ref_id, group_type) {
     try {
       let result;
       switch (group_type) {
         case "member":
           result = await this.memberModel
             .findById({
-              _id: _id,
+              _id: view_ref_id,
               mb_status: "ACTIVE",
             })
             .exec();
@@ -30,7 +30,7 @@ class View {
 
   async insertMemberView(view_ref_id, group_type) {
     try {
-      const new_view = new this.ViewModel({
+      const new_view = new this.viewModel({
         mb_id: this.mb_id,
         view_ref_id: view_ref_id,
         view_group: group_type,
@@ -51,12 +51,7 @@ class View {
       switch (group_type) {
         case "member":
           await this.memberModel
-            .findByIdAndUpdate(
-              {
-                _id: view_ref_id,
-              },
-              { $inc: { mb_views: 1 } }
-            )
+            .findByIdAndUpdate({ _id: view_ref_id }, { $inc: { mb_views: 1 } })
             .exec();
           break;
       }
@@ -68,7 +63,7 @@ class View {
 
   async checkViewExistence(view_ref_id) {
     try {
-      const view = this.viewModel
+      const view = await this.viewModel
         .findOne({ mb_id: this.mb_id, view_ref_id: view_ref_id })
         .exec();
       return view ? true : false;

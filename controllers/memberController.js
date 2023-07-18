@@ -34,7 +34,7 @@ memberController.login = async (req, res) => {
 
     const token = memberController.createToken(result); //TOKEN
     res.cookie("access_token", token, {
-      maxAge: 6 * 3600 * 1000,
+      maxAge: 6 * 3600 * 1000, //cookieni umri
       httpOnly: true,
     });
 
@@ -60,7 +60,7 @@ memberController.createToken = (result) => {
     };
 
     const token = jwt.sign(upload_data, process.env.SECRET_TOKEN, {
-      expiresIn: "6h",
+      expiresIn: "6h", // tokenni umri
     });
 
     assert.ok(token, Definer.auth_err2);

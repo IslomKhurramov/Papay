@@ -85,7 +85,7 @@ class Member {
 
       //validation needed
       const view = new View(mb_id);
-      const isValid = view.validateChosenTarget(view_ref_id, group_type);
+      const isValid = await view.validateChosenTarget(view_ref_id, group_type);
       assert.ok(isValid, Definer.general_err2);
 
       //logged user has seen target before

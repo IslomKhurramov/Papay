@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const memberController = require("./controllers/memberController");
 const productController = require("./controllers/productController");
-
+const restaurantController = require("./controllers/restaurantController");
 //MEMBER RELATED
 router.post("/signup", memberController.signup);
 router.post("/login", memberController.login);
@@ -31,5 +31,13 @@ router.get(
   "/products/:id",
   memberController.retrieveAuthMember,
   productController.getChosenProduct
-),
-  (module.exports = router);
+);
+
+//Restaurant related router
+router.get(
+  "/restaurants",
+  memberController.retrieveAuthMember,
+  restaurantController.getRestaurants
+);
+
+module.exports = router;

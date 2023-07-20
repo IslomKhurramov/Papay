@@ -6,6 +6,23 @@ const assert = require("assert");
 
 let restaurantController = module.exports;
 
+restaurantController.getRestaurants = async (req, res) => {
+  try {
+    console.log("GET: cont/getRestaurants");
+    const data = req.query;
+    const restaurant = new Restaurant();
+    const result = await restaurant.getRestaurantsData(req.member, data);
+    res.json({ state: "success", data: result });
+  } catch (err) {
+    console.log("ERROR, cont/getRestaurants", err.message);
+    res.json({ state: "fail", message: err.message });
+  }
+};
+
+/******************************************
+ *         BSSR related methods       *
+ *****************************/
+
 restaurantController.home = (req, res) => {
   try {
     console.log("GET: cont/home");

@@ -1,3 +1,4 @@
+const { getMyOrders } = require("../controllers/orderController");
 const { shapeIntoMongosObjectId } = require("../lib/config");
 const Definer = require("../lib/mistake");
 const OrderModel = require("../schema/order.model");
@@ -52,6 +53,7 @@ class Order {
       const result = await new_order.save();
       assert.ok(result, Definer.order_err1);
 
+      // console.log("result._id::::", result._id);
       return result._id;
     } catch (err) {
       console.log(err);
@@ -64,7 +66,7 @@ class Order {
       const pro_list = data.map(async (item) => {
         return await this.saveOrderItemsData(item, order_id);
       });
-      const results = await Promise.all(pro_list);
+      const results = await Promise.all(pro_list); //hamma
       console.log(results);
       return true;
     } catch (err) {
@@ -89,6 +91,39 @@ class Order {
       return "created";
     } catch (err) {
       throw new Error(Definer.order_err2);
+    }
+  }
+  async getMyOrdersData(member, query) {
+    try {
+      const mb_id = shapeIntoMongosObjectId(member._id),
+        order_status = query.status.toUpperCase(),
+        matches = { mb_id: mb_id, order_status: order_status };
+
+      const result = await this.orderModel
+        .aggregate([
+          { $match: matches },
+          { $sort: { createdAt: -1 } },
+          {
+            $lookup: {
+              from: "orderitems",
+              localField: "_id",
+              foreignField: "order_id",
+              as: "order_items",
+            },
+          },
+          {
+            $lookup: {
+              from: "products",
+              localField: "order_items.product_id",
+              foreignField: "_id",
+              as: "product_data",
+            },
+          },
+        ])
+        .exec();
+      return result;
+    } catch (err) {
+      throw err;
     }
   }
 }

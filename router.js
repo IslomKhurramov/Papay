@@ -3,7 +3,11 @@ const router = express.Router();
 const memberController = require("./controllers/memberController");
 const productController = require("./controllers/productController");
 const restaurantController = require("./controllers/restaurantController");
+const communityController = require("./controllers/communityController");
 const orderController = require("./controllers/orderController");
+const uploader_community = require("./utils/upload-multer")("community");
+const uploader_member = require("./utils/upload-multer")("member");
+
 //MEMBER RELATED
 router.post("/signup", memberController.signup);
 router.post("/login", memberController.login);
@@ -66,4 +70,17 @@ router.post(
   orderController.editChosenOrder
 );
 
+//community related routers
+
+router.post(
+  "/community/image",
+  uploader_community.single("community_image"),
+  communityController.imageInsertion
+);
+
+router.post(
+  "/community/create",
+  memberController.retrieveAuthMember,
+  communityController.createArticle
+);
 module.exports = router;

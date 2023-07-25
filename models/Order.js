@@ -139,7 +139,7 @@ class Order {
         { runValidators: true, lean: true, returnDocument: "after" }
       );
 
-      console.log(result);
+      // console.log(result);
       assert.ok(result, Definer.order_err3);
     } catch (err) {
       throw err;

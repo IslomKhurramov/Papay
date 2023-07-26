@@ -5,6 +5,7 @@ const {
 const Definer = require("../lib/mistake");
 const BoArticleModel = require("../schema/bo_article.model");
 const assert = require("assert");
+const Member = require("./Member");
 
 class Community {
   constructor() {
@@ -98,6 +99,24 @@ class Community {
           //todo: check auth member liked the chosen target
         ])
         .exec();
+      assert.ok(result, Definer.article_err3);
+
+      return result;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async getChosenArticleData(member, art_id) {
+    try {
+      art_id = shapeIntoMongosObjectId(art_id);
+
+      if (member) {
+        const member_obj = new Member();
+        await member_obj.viewChosenItemByMember(member, art_id, "community");
+      }
+
+      const result = await this.boArticleModel.findById({ _id: art_id }).exec();
       assert.ok(result, Definer.article_err3);
 
       return result;

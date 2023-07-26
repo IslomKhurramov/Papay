@@ -105,9 +105,9 @@ class Order {
           { $sort: { createdAt: -1 } },
           {
             $lookup: {
-              from: "orderitems",
-              localField: "_id",
-              foreignField: "order_id",
+              from: "orderitems", //collectionidan izla degani
+              localField: "_id", //order collectionidagi id
+              foreignField: "order_id", //yuqoridagi id orderitemsnig id teng bulganlarni olib ber degani
               as: "order_items",
             },
           },
@@ -115,7 +115,7 @@ class Order {
             $lookup: {
               from: "products",
               localField: "order_items.product_id",
-              foreignField: "_id",
+              foreignField: "_id", //order itemsdagi id
               as: "product_data",
             },
           },

@@ -39,6 +39,7 @@ communityController.getMemberArticles = async (req, res) => {
 
     const mb_id =
       req.query.mb_id !== "none" ? req.query.mb_id : req.member?._id;
+    console.log("mb_id::", mb_id);
     assert.ok(mb_id, Definer.article_err1);
 
     const result = await community.getMemberArticlesData(

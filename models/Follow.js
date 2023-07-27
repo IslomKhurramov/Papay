@@ -68,6 +68,27 @@ class Follow {
           )
           .exec();
       }
+      return true;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async unsubscribeData(member, data) {
+    try {
+      const subscriber_id = shapeIntoMongosObjectId(member._id);
+      const follow_id = shapeIntoMongosObjectId(data.mb_id);
+
+      const result = await this.followModel.findOneAndDelete({
+        follow_id: follow_id,
+        subscriber_id: subscriber_id,
+      });
+      assert.ok(result, Definer.general_err1);
+
+      await this.modifyMemberFollowCount(follow_id, "subscriber_change", -1);
+      await this.modifyMemberFollowCount(subscriber_id, "follow_change", -1);
+
+      return true;
     } catch (err) {
       throw err;
     }

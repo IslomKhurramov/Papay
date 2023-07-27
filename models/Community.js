@@ -70,7 +70,7 @@ class Community {
 
   async getArticlesData(member, inquery) {
     try {
-      const auth_mb_id = shapeIntoMongosObjectId(member._id);
+      const auth_mb_id = shapeIntoMongosObjectId(member?._id);
       let matches =
         inquery.bo_id === "all"
           ? { bo_id: { $in: board_id_enum_list }, art_status: "active" }

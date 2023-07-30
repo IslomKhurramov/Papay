@@ -4,9 +4,11 @@ const {
 } = require("../lib/config");
 const Definer = require("../lib/mistake");
 const MemberModel = require("../schema/member.model");
+
 const assert = require("assert");
 const bcrypt = require("bcryptjs");
 const View = require("./View");
+const Like = require("./Like");
 
 class Member {
   constructor() {
@@ -103,6 +105,36 @@ class Member {
         assert.ok(result, Definer.general_err1);
       }
       return true;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async likeChosenItemByMember(member, like_ref_id, group_type) {
+    try {
+      like_ref_id = shapeIntoMongosObjectId(like_ref_id);
+      const mb_id = shapeIntoMongosObjectId(member._id);
+
+      const like = new Like(mb_id);
+      const isValid = await like.validateTargetItem(like_ref_id, group_type);
+      console.log("isValid:::", isValid);
+      assert.ok(isValid, Definer.general_err2);
+
+      //doesExist
+      const doesExist = await like.checkLikeExistence(like_ref_id);
+      console.log("doesexist:::", doesExist);
+
+      let data = doesExist
+        ? await like.removeMemberLike(like_ref_id, group_type)
+        : await like.insertMemberLike(like_ref_id, group_type);
+      assert.ok(data, Definer.general_err1);
+
+      const result = {
+        like_group: data.like_group,
+        like_ref_id: data.like_ref_id,
+        like_status: doesExist ? 0 : 1,
+      };
+      return result;
     } catch (err) {
       throw err;
     }

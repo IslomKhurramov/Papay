@@ -21,6 +21,12 @@ router.get(
   memberController.getChosenMember
 );
 
+router.post(
+  "/member-liken",
+  memberController.retrieveAuthMember,
+  memberController.likeMemberChosen
+);
+
 /*********************************************************
  *    REST API    -React un kerak bulgan router hisoblanadi *
  *********************************************************/

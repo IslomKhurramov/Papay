@@ -136,6 +136,8 @@ class Member {
         like_ref_id: data.like_ref_id,
         like_status: doesExist ? 0 : 1,
       };
+
+      console.log(result);
       return result;
     } catch (err) {
       throw err;

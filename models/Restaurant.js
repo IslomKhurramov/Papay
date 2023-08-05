@@ -24,8 +24,8 @@ class Restaurant {
       switch (data.order) {
         case "top":
           match["mb_top"] = "Y";
-          aggregationQuery.push({ $sample: { size: data.limit } }); //sample - random shaklda datani tanlaydi
           aggregationQuery.push({ $match: match });
+          aggregationQuery.push({ $sample: { size: data.limit } }); //sample - random shaklda datani tanlaydi
           break;
         case "random":
           aggregationQuery.push({ $match: match });

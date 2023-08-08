@@ -15,7 +15,7 @@ memberController.signup = async (req, res) => {
     const token = memberController.createToken(new_member); //TOKEN
     res.cookie("access_token", token, {
       maxAge: 6 * 3600 * 1000,
-      httpOnly: true,
+      httpOnly: false,
     });
 
     res.json({ state: "succeed", data: new_member });
@@ -35,7 +35,7 @@ memberController.login = async (req, res) => {
     const token = memberController.createToken(result); //TOKEN
     res.cookie("access_token", token, {
       maxAge: 6 * 3600 * 1000, //cookieni umri
-      httpOnly: true,
+      httpOnly: false,
     });
 
     res.json({ state: "succeed", data: result });

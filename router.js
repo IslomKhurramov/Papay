@@ -8,7 +8,7 @@ const followController = require("./controllers/followController");
 
 const orderController = require("./controllers/orderController");
 const uploader_community = require("./utils/upload-multer")("community");
-const uploader_member = require("./utils/upload-multer")("member");
+const uploader_member = require("./utils/upload-multer")("members");
 
 //MEMBER RELATED
 router.post("/signup", memberController.signup);
@@ -27,6 +27,12 @@ router.post(
   memberController.likeMemberChosen
 );
 
+router.post(
+  "/member/update",
+  memberController.retrieveAuthMember,
+  uploader_member.single("mb_image"),
+  memberController.updateMember
+);
 /*********************************************************
  *    REST API    -React un kerak bulgan router hisoblanadi *
  *********************************************************/
